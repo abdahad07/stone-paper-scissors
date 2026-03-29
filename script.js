@@ -1,11 +1,12 @@
 const GAME_OPTIONS = ["ROCK", "PAPER", "SCISSOR"];
 let humanScore = 0;
 let computerScore = 0;
-let roundNumber = 1;
+let roundNumber = 0;
 let draws = 0;
 
 // Function to play a round
 const playRound = (getHumanChoice) => {
+  if (roundNumber >= 5) return;
   const getComputerChoice = GAME_OPTIONS[Math.floor(Math.random() * 3)];
 
   const winCondition =
@@ -24,10 +25,22 @@ const playRound = (getHumanChoice) => {
     User: ${getHumanChoice}<br>
     Result: ${result}<br><br>
     User: ${humanScore}<br>
-    Computer: ${computerScore}<br>
-    Draws: ${draws}`;
+    Computer: ${computerScore}`;
+
+    if (roundNumber === 5) {
+      resultText.innerHTML = `Game Over<br><br>
+    Result: ${
+      humanScore > computerScore
+        ? "You win"
+        : humanScore < computerScore
+        ? "You lost"
+        : "Draw"
+    }<br><br>
+    User: ${humanScore}<br>
+    Computer: ${computerScore}<br>    `;
+    }
   };
-  roundNumber++;
+  roundNumber += 1;
 
   if (getComputerChoice === getHumanChoice) {
     resultStatement("Draw");
