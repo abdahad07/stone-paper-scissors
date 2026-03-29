@@ -1,6 +1,7 @@
 const GAME_OPTIONS = ["ROCK", "PAPER", "SCISSOR"];
 let humanScore = 0;
 let computerScore = 0;
+let roundNumber = 1;
 
 // Function to return either rock, paper or scissor
 const getComputerChoice = () => GAME_OPTIONS[Math.floor(Math.random() * 3)];
@@ -20,8 +21,8 @@ const playRound = (getHumanChoice, getComputerChoice) => {
     (getComputerChoice === "ROCK" && getHumanChoice === "SCISSOR") ||
     (getComputerChoice === "PAPER" && getHumanChoice === "ROCK");
   const consoleStatement = (result) =>
-    console.log(
-      `Computer: ${getComputerChoice}\nUser: ${getHumanChoice}\nResult: ${result}\n\nUser:${humanScore}\nComputer:${computerScore}`
+    alert(
+      `Round:${roundNumber}\n\nComputer: ${getComputerChoice}\nUser: ${getHumanChoice}\nResult: ${result}\n\nUser:${humanScore}\nComputer:${computerScore}`
     );
 
   if (getComputerChoice === getHumanChoice) {
@@ -36,7 +37,16 @@ const playRound = (getHumanChoice, getComputerChoice) => {
     consoleStatement("Wrong Option");
   }
 };
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+const playGame = () => {
+  for (let i = 0; i < 2; i++) {
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+
+    playRound(humanSelection, computerSelection);
+    roundNumber += 1;
+  }
+  alert("GAME OVER");
+};
+
+playGame();
